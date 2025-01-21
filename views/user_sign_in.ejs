@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- title %></title>
+    <!-- <link rel="stylesheet" href="/public/css/common.css"> -->
+    <link rel="stylesheet" href="/public/css/signin.css">
+</head>
+<body>
+    <div id="cent">
+        <h1>Sign In page</h1>
+        <form action="/user/createsession" method="POST">
+        <input type="email" name="Email" placeholder="enter your email" required>
+        <input type="text" name="Password" placeholder="enter your password" required>
+        <button>Sign in</button>
+    </form>
+    </div>
+    
+</body>
+</html>
