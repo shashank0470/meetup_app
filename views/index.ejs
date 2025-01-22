@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/public/css/index.css">
 </head>
 <body>
-    hello
+
+    <% if(user){ %>
+    <p>Hello:<%= user.name %></p>
+    <p>Your email:<%= user.email %></p>
+    <% }%>
 </body>
 </html>

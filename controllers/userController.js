@@ -63,12 +63,27 @@ module.exports.create = async (req, res) => {
 };
 
 
-module.exports.createsession = async(req, res)=>{
-    try{
-        return res.render("createsession")
+module.exports.createsession = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        
+        if (!user) {
+            console.log("User not found");
+            return res.redirect('/user/signup');
+        }
+
+        if (user.password !== req.body.password) {
+            console.log("Password doesn't match");
+            // Use safer redirect
+            return res.redirect('/user/signin');
+        }
+
+        res.cookie('user_id', user.id);
+        return res.redirect("/")
+
+    } catch (error) {
+        console.error("create-session error", error);
+        return res.status(500).send("There is an error with creation session");
     }
-    catch(error){
-        console.error("creation error",error)
-        return res.status(500).send("There is a creating error")
-    }
-}
+};
+

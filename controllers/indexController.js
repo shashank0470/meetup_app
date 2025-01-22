@@ -1,12 +1,15 @@
-const { CURSOR_FLAGS } = require('mongodb');
+
 const User = require('../models/user');
+
 
 
 module.exports.getalluser = async(req, res) =>{
     try{
-        console.log(req.cookies);
-        res.cookie("hhhhh", 66)
-        return res.render("index",{title: "main page"})
+        const userId = req.cookies.user_id;
+        if(userId){
+            const user = await User.findById(userId);
+            return res.render("index", {user})
+        }
     }
     catch(error){
         console.error("There is a error with main page", error)
