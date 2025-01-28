@@ -65,10 +65,9 @@ module.exports.create = async (req, res) => {
 
 module.exports.createsession = async(req, res)=>{
     try{
-        return res.render("createsession")
+        return res.redirect("/")
     }
     catch(error){
-        console.error("creation error",error)
-        return res.status(500).send("There is a creating error")
+        console.error("Error", error)
     }
 }

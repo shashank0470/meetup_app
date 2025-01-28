@@ -1,27 +1,55 @@
 const express = require("express");
-const port = 8000;
 const cookieParser = require("cookie-parser")
-const path = require("path")
-const Userroutes = require("./routes/userRoutes");
-const Indexroutes = require("./routes/indexRoutes")
+const app = express();
+const port = 8000;
 const expressEjsLayouts = require("express-ejs-layouts");
-
-const bodyParser = require('body-parser');
-
 const connectDB = require("./config/db")
 
+//used for session cookie
+const session = require("express-session")
+const passport = require("passport")
+const localPassport = require("./config/passport_config")
+const bodyParser = require('body-parser');
+const path = require("path")
 
-const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+
+app.use("/public", express.static(path.join(__dirname, "public")))
+
+app.use(expressEjsLayouts)
+
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname,"views"))
-app.use("/public", express.static(path.join(__dirname, "public")))
+
+
+app.use(session({
+    name:"meetup",
+    secret:"shashankpantishero",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge:(1000 * 40 * 100)
+    }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+const Userroutes = require("./routes/userRoutes");
+const Indexroutes = require("./routes/indexRoutes")
+
+
+
+
+
+
+
+
 
 connectDB();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 
-app.use(expressEjsLayouts)
 
 
 
