@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="/public/css/index.css">
 </head>
 <body>
-    hello
+
+    <% if(locals.user){ %> 
+        <p><%= user.name %></p>
+
+        <p> <a href="/user/signout">Sign Out</a> </p>
+        
+    <%} else{%>
+        <p><a href="/user/signin">Sign In</a></p>
+
+        <p><a href="/user/signup">Sign Up</a></p>
+    <% } %>
+
 </body>
 </html>
