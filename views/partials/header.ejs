@@ -15,7 +15,17 @@
         This is the header
     </div>
     
-    
+    <% if(locals.user){ %> 
+        <p><a href="/user/profile"><%= user.name %></a></p>
+
+        <p> <a href="/user/signout">Sign Out</a> </p>
+        
+    <%} else{%>
+        <p><a href="/user/signin">Sign In</a></p>
+
+        <p><a href="/user/signup">Sign Up</a></p>
+    <% } %>
+
 
 </body>
 </html>

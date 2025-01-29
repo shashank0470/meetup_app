@@ -29,10 +29,12 @@ passport.use(new LocalStrategy(
     }
 ));
 
+//conveting complex data structure into format that ccan be easily understand and transmitted
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
+//converting the stored tramitted formate back into usable data structure
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await User.findById(id);

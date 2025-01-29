@@ -9,12 +9,22 @@ const User = require('../models/user');
 //         return res.status(500).send("There is a error with main page")
 //     }
 // };
+module.exports.profile = async (req, res)=>{
+    try{
+        return res.render("user_profile",{title: "Profile Page"})
+    }
+
+    catch(err){
+        console.error("There is error with the profile page", err);
+    }
+};
+
 
 module.exports.signup = async (req, res) => {
     try {
         
         if(req.isAuthenticated()){
-            res.redirect("/");
+            res.redirect("/user/profile");
         }
         return res.render('user_sign_up', {
             title: 'Signup page'
@@ -29,7 +39,7 @@ module.exports.signin = async (req, res) => {
     try {
         //isAuthenticated : Returns true if the user is authenticated/logged in
         if(req.isAuthenticated()){
-            res.redirect("/");
+            res.redirect("/user/profile");
         }
         return res.render('user_sign_in', {
             title: 'Signin page'
@@ -73,7 +83,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createsession = async(req, res)=>{
     try{
-        return res.redirect("/")
+        return res.redirect("/user/profile")
     }
     catch(error){
         console.error("Error", error)

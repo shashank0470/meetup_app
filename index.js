@@ -24,6 +24,8 @@ app.use(cookieParser());
 app.use("/public", express.static(path.join(__dirname, "public")))
 
 app.use(expressEjsLayouts)
+app.set("layout extractStyles", true);
+app.set("layout extractScripts", true);
 
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname,"views"))
