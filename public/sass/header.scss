@@ -1,0 +1,74 @@
+// Reset default margins and padding
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Main header container
+#mainhead {
+    width: 100%;
+    background-color: #2c3e50;
+    padding: 1rem;
+    
+    // Header title
+    #head {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    // Content container
+    #content {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        // User section when logged in
+        #user {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+
+            p {
+                margin: 0;
+                
+                a {
+                    color: white;
+                    text-decoration: none;
+                    padding: 0.5rem 1rem;
+                    
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.1);
+                        border-radius: 4px;
+                    }
+                }
+            }
+        }
+
+        // User section when not logged in
+        #userA {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+
+            p {
+                margin: 0;
+                
+                a {
+                    color: white;
+                    text-decoration: none;
+                    padding: 0.5rem 1rem;
+                    
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.1);
+                        border-radius: 4px;
+                    }
+                }
+            }
+        }
+    }
+}

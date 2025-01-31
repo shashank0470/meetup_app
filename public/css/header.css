@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#mainhead {
+  width: 100%;
+  background-color: #2c3e50;
+  padding: 1rem;
+}
+#mainhead #head {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+#mainhead #content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#mainhead #content #user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+#mainhead #content #user p {
+  margin: 0;
+}
+#mainhead #content #user p a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+#mainhead #content #user p a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+#mainhead #content #userA {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+#mainhead #content #userA p {
+  margin: 0;
+}
+#mainhead #content #userA p a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+#mainhead #content #userA p a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}

@@ -4,27 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        #head{
-            text-align: center;
-        }
-    </style>
+
+    <link rel="stylesheet" href="/public/css/header.css">
 </head>
 <body>
-    <div id="head">
-        This is the header
+    <div id="mainhead">
+        <div id="head">
+            Codeial
+        </div>
+        <div id="content">
+            <% if(locals.user){ %>
+                <div id="user">
+                    <p><a href="/user/profile"><%= user.name %></a></p>
+                    <p><a href="/user/signout">Sign Out</a></p>
+                </div>
+            <%} else{%>
+                <div id="userA">
+                    <p><a href="/user/signin">Sign In</a></p>
+                    <p><a href="/user/signup">Sign Up</a></p>
+                </div>
+            <% } %>
+        </div>
     </div>
-    
-    <% if(locals.user){ %> 
-        <p><a href="/user/profile"><%= user.name %></a></p>
 
-        <p> <a href="/user/signout">Sign Out</a> </p>
-        
-    <%} else{%>
-        <p><a href="/user/signin">Sign In</a></p>
-
-        <p><a href="/user/signup">Sign Up</a></p>
-    <% } %>
 
 
 </body>

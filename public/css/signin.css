@@ -1,12 +1,9 @@
-body{
-    background-color: aqua;
-
+body {
+  background-color: aqua;
 }
 
-
-#cent{
-    margin: 20px auto;
-    width: 50%;
-    text-align: center;
-
+#cent {
+  margin: 20px auto;
+  width: 50%;
+  text-align: center;
 }

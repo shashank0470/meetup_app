@@ -64,12 +64,13 @@ passport.checkAuthentication = async (req, res, next)=> {
 passport.setAuthenticatedUser = async (req, res, next)=>{
     try{
         if(req.isAuthenticated()){
+            //Make user data available to views through res.locals
             res.locals.user = req.user
         }
         next()
     }
     catch(err){
-        console.error("There is a error", error)
+        console.error("There is a error", err)
     }
 }
 
