@@ -47,25 +47,27 @@ passport.deserializeUser(async (id, done) => {
         return done(err);
     }
 });
-
+// This is a protection middleware that controls route access
 passport.checkAuthentication = async (req, res, next)=> {
     try{
         if (req.isAuthenticated()){
-            return next();
+            return next(); // Allows access to the route
+
         }
 
-        return res.redirect("/user/signin")
+        return res.redirect("/user/signin") // Blocks access, redirects to home
     }
     catch(err){
         console.error("There is a error", error)
     }
 }
 
+// This is an information-sharing middleware that passes user data to views
 passport.setAuthenticatedUser = async (req, res, next)=>{
     try{
         if(req.isAuthenticated()){
             //Make user data available to views through res.locals
-            res.locals.user = req.user
+            res.locals.user = req.user // Makes user data available in views
         }
         next()
     }

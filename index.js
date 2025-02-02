@@ -7,10 +7,6 @@ const path = require("path")
 const expressEjsLayouts = require("express-ejs-layouts");
 const connectDB = require("./config/db")
 
-//used for session cookie or to store the users information 
-const session = require("express-session")
-const passport = require("passport")
-const localPassport = require("./config/passport_config")
 
 //sass for better css or something like that, lol
 const sass = require("sass")
@@ -20,6 +16,10 @@ async function compileSass() {
         const layoutResult = await sass.compileAsync(path.join(__dirname, 'public/sass/layout.scss'));
         fs.writeFileSync(path.join(__dirname, 'public/css/layout.css'), layoutResult.css);
         console.log('layout.scss compiled successfully!');
+
+        const indexResult = await sass.compileAsync(path.join(__dirname, 'public/sass/index.scss'));
+        fs.writeFileSync(path.join(__dirname, 'public/css/index.css'), indexResult.css);
+        console.log('index.scss compiled successfully!');
 
         // Compile signin.scss
         const signinResult = await sass.compileAsync(path.join(__dirname, 'public/sass/signin.scss'));
@@ -73,6 +73,14 @@ app.set("layout extractScripts", true);
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname,"views"))
 
+
+//******use this passport and iske turant baad isko app.use(session) wala *****/
+//used for session cookie or to store the users information 
+const session = require("express-session")
+const passport = require("passport")
+const localPassport = require("./config/passport_config")
+
+
 app.use(session({
     name:"meetup",
     secret:"shashankpantishero",
@@ -94,11 +102,12 @@ app.use(passport.setAuthenticatedUser);
 
 const Userroutes = require("./routes/userRoutes");
 const Indexroutes = require("./routes/indexRoutes")
-
+const Postroutes = require("./routes/postRoutes")
 connectDB();
 
 app.use("/user",Userroutes)
 app.use("/",Indexroutes)
+app.use("/Post",Postroutes)
 
 
 

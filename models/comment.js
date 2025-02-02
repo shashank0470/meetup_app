@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
@@ -10,17 +10,11 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         //imp: the user here is the user which is used in the user model while exporting or that user which is created as model.
         ref: "user",
-    },
-
-    //here we added comments so that we can easily access the comment which is done on the post. by using comment here we can directly fetch them.
-    comments: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "comment",
     }
 },{
     timestamps: true
 });
 
-const Post = mongoose.model("Post", postSchema);
+const comment = mongoose.model("comment", commentSchema);
 
-module.exports= Post;
+module.exports= comment;

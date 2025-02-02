@@ -24,7 +24,7 @@ module.exports.signup = async (req, res) => {
     try {
         
         if(req.isAuthenticated()){
-            res.redirect("/user/profile");
+            res.redirect("/");
         }
         return res.render('user_sign_up', {
             title: 'Signup page'
@@ -39,7 +39,7 @@ module.exports.signin = async (req, res) => {
     try {
         //isAuthenticated : Returns true if the user is authenticated/logged in
         if(req.isAuthenticated()){
-            res.redirect("/user/profile");
+            res.redirect("/");
         }
         return res.render('user_sign_in', {
             title: 'Signin page'
@@ -83,7 +83,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createsession = async(req, res)=>{
     try{
-        return res.redirect("/user/profile")
+        return res.redirect("/")
     }
     catch(error){
         console.error("Error", error)
@@ -106,3 +106,4 @@ module.exports.logOut = async(req, res) =>{
         console.error("There is a error in logging out", err)
     }
 };
+

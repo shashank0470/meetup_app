@@ -5,19 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/public/css/index.css">
+    <script src="https://kit.fontawesome.com/9b1d1fc326.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
     <p>This is the home pageeeeeeeee</p>
 
+    
     <section id="feed-post">
         <h4>Posts</h4>
-        <form action="" id="new-post-form" method="POST">
-            <textarea name="content" cols="30" rows="3"></textarea>
-            <input type="submit" value="Post">
+        <!-- <% if(locals.user){%> -->
+            <form action="/post/create" id="new-post-form" method="POST">
+                <textarea name="content" cols="30" rows="3" placeholder="Type here"></textarea>
+                <input type="submit" value="Post">
+            </form>
+        <!-- <%}%> -->
+    </section>
+    <!-- the const post is the const we assign for posts or post or comment. this means we are using the post of the posts (this posts is from the indexController where its value is post which is equal to = await Post.find({})) so here generally we are find the post and from those post we write the content here. -->
+    <% for(const post of posts){ %>
+        <!-- here we created a system when we click on the button it will delete the comment, how does it work: so first we create a form then give it a method(post) and action where to perform the deletiono. then we create a controller to do the work named dertroy then we create a route when will have the route of the delete comment. i have to pass the action link this it contain the <% post.id%> -->
+        
+        <form id="comment" action="/post/delete/<%= post._id %>" method="POST">
+        
+                <div id="content">
+                    <li id="hh"><%= post.content %>
+                        <button type="submit" ><i class="fa-solid fa-delete-left"></i></button> :
+                        <% if(post.user) {%>
+                            <%= post.user.name %>
+                        <% } %>
+                    </li>
+                    <div class="post-comment">
+                        <% if(locals.user) {%>
+                            <form action="/comment/create" method="POST">
+                            <input type="text" name="content" placeholder="Enter your comment" required>
+                            <button type="submit">Submit</button>
+
+
+                            </form>
+                        <%}%>
+                        
+                    </div>
+                </div>
+            
 
         </form>
-    </section>
+        <%}%>
     
 </body>
 </html>

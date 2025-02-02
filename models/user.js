@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     }
 
 }, {//it looks for the timestamps when the data is entered and edited
-    timeStamps:true
+    timestamps:true
 });
 
 const user = mongoose.model("user",userSchema); 
