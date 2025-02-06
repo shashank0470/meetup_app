@@ -15,44 +15,44 @@
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
-#mainhead #content {
+#mainhead #contentt {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-#mainhead #content #user {
+#mainhead #contentt #user {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
 }
-#mainhead #content #user p {
+#mainhead #contentt #user p {
   margin: 0;
 }
-#mainhead #content #user p a {
+#mainhead #contentt #user p a {
   color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
 }
-#mainhead #content #user p a:hover {
+#mainhead #contentt #user p a:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
-#mainhead #content #userA {
+#mainhead #contentt #userA {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
 }
-#mainhead #content #userA p {
+#mainhead #contentt #userA p {
   margin: 0;
 }
-#mainhead #content #userA p a {
+#mainhead #contentt #userA p a {
   color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
 }
-#mainhead #content #userA p a:hover {
+#mainhead #contentt #userA p a:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }

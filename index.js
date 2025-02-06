@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require("path")
 const expressEjsLayouts = require("express-ejs-layouts");
 const connectDB = require("./config/db")
+const flash = require("connect-flash")
 
 
 //sass for better css or something like that, lol
@@ -80,6 +81,8 @@ const session = require("express-session")
 const passport = require("passport")
 const localPassport = require("./config/passport_config")
 
+//here is the flash messages came from
+app.use(flash());
 
 app.use(session({
     name:"meetup",
@@ -103,8 +106,10 @@ app.use(passport.setAuthenticatedUser);
 const Userroutes = require("./routes/userRoutes");
 const Indexroutes = require("./routes/indexRoutes")
 const Postroutes = require("./routes/postRoutes")
+const Commentroutes = require("./routes/commentRoutes")
 connectDB();
 
+app.use("/comment",Commentroutes)
 app.use("/user",Userroutes)
 app.use("/",Indexroutes)
 app.use("/Post",Postroutes)

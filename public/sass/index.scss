@@ -1,11 +1,39 @@
 body{
 
 
+    #Main{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px;
+
+    }
+    #content{
+        margin-top: 10px;
+        
+
         #hh{
             list-style: square;
             margin: 20px;
+            display: flex;
+            gap: 10px;
         }
+
+        .post-comment{
+            margin: 20px;
+        }
+    }
+
     
-    
+    #all_users{
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        border-left: 1px black solid;
+        // this gap only work when the display is flex
+        gap: 5px;
+        padding: 5px;
+        height: 100%;
+    }
 
 }

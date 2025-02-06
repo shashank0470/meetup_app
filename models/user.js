@@ -13,7 +13,13 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+    },
+    users:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        
     }
+
 
 }, {//it looks for the timestamps when the data is entered and edited
     timestamps:true

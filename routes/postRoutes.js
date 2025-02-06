@@ -11,5 +11,6 @@ router.post("/create", passport.checkAuthentication ,postController.create);
 // id is the name we chose (we could use :postId, :userId, etc.)
 // In your controller, you access it using req.params.id
 router.post("/delete/:id",postController.destroy);
+// when this is not written  this error comes: Router.use() requires a middleware function but got a Object
 
 module.exports = router; 

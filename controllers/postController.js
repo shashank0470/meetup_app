@@ -11,11 +11,11 @@ module.exports.create = async(req, res) =>{
 
         const post = await Post.create({
             content: req.body.content,
-            user: req.user.id
+            user: req.user._id
         })
-
-        return res.redirect("back");
-    } 
+            return res.redirect("back");
+        
+    }
     catch(err){
         console.error("There is a error", err);
     }
@@ -31,4 +31,4 @@ module.exports.destroy = async(req, res) =>{
     catch(err){
         console.error("There is a error with deleting the comment", err)
     }
-};
+}; 

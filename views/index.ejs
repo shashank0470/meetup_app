@@ -9,47 +9,50 @@
 </head>
 <body>
 
-    <p>This is the home pageeeeeeeee</p>
+    <main id="Main">
 
+        <section id="feed-post">
+            <h4>Posts</h4>
+            <% if(locals.user){%>
+                <form action="/post/create" id="new-post-form" method="POST">
+                    <textarea name="content" cols="30" rows="3" placeholder="Type here"></textarea>
+                    <input type="submit" value="Post">
+                </form>
+            <%}%>
     
-    <section id="feed-post">
-        <h4>Posts</h4>
-        <!-- <% if(locals.user){%> -->
-            <form action="/post/create" id="new-post-form" method="POST">
-                <textarea name="content" cols="30" rows="3" placeholder="Type here"></textarea>
-                <input type="submit" value="Post">
-            </form>
-        <!-- <%}%> -->
-    </section>
-    <!-- the const post is the const we assign for posts or post or comment. this means we are using the post of the posts (this posts is from the indexController where its value is post which is equal to = await Post.find({})) so here generally we are find the post and from those post we write the content here. -->
-    <% for(const post of posts){ %>
-        <!-- here we created a system when we click on the button it will delete the comment, how does it work: so first we create a form then give it a method(post) and action where to perform the deletiono. then we create a controller to do the work named dertroy then we create a route when will have the route of the delete comment. i have to pass the action link this it contain the <% post.id%> -->
-        
-        <form id="comment" action="/post/delete/<%= post._id %>" method="POST">
-        
-                <div id="content">
-                    <li id="hh"><%= post.content %>
-                        <button type="submit" ><i class="fa-solid fa-delete-left"></i></button> :
-                        <% if(post.user) {%>
-                            <%= post.user.name %>
-                        <% } %>
-                    </li>
-                    <div class="post-comment">
-                        <% if(locals.user) {%>
-                            <form action="/comment/create" method="POST">
-                            <input type="text" name="content" placeholder="Enter your comment" required>
-                            <button type="submit">Submit</button>
-
-
-                            </form>
-                        <%}%>
-                        
-                    </div>
-                </div>
-            
-
-        </form>
+    
+    
+    
+    
+                <!-- the const post is the const we assign for posts or post or comment. this means we are using the post of the posts (this posts is from the indexController where its value is post which is equal to = await Post.find({})) so here generally we are find the post and from those post we write the content here. -->
+        <% for(const post of posts){ %>
+            <!-- "post" refers to your post.ejs file
+            {post: post} is passing data to the included template where:
+            The first post (before the colon) is the variable name that will be used in post.ejs
+            The second post (after the colon) is the current post object from your loop -->
+            <%- include("post", {post: post}) %>
+    
         <%}%>
+        </section>
+    
+    
+    
+    
+    
+        <section id="all_users">
+            <% if(locals.user){%>
+                
+                <h1>All the user list:-</h1>
+                <% for(const user of users){%>
+                <!-- here we changed the url so now we have to change the url from the routes also  -->
+                <p><a href="/user/profile/<%= user.id%>"><%= user.name %></a></p> 
+                <%}%>
+                
+            <%}%>
+            
+        </section>
+    </main>
+
     
 </body>
-</html>
+</html>                                                                                  

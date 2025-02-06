@@ -1,3 +1,4 @@
+const user = require('../models/user');
 const User = require('../models/user');
 
 // module.exports.getalluser = async(req, res) =>{
@@ -11,7 +12,19 @@ const User = require('../models/user');
 // };
 module.exports.profile = async (req, res)=>{
     try{
-        return res.render("user_profile",{title: "Profile Page"})
+        const user_name = await User.findById(req.params.id);
+
+        if(user_name){
+            //********both title and hero should be inside the same object passed to res.render()**********//
+            return res.render("user_profile",{title: "Profile Page",
+                profile_data: user_name,
+                //this is important to use beacuse we are using the user deatils in the profie ejs file and without this it wont be possible
+                user: req.user
+            })
+
+            
+
+        }
     }
 
     catch(err){
@@ -107,3 +120,22 @@ module.exports.logOut = async(req, res) =>{
     }
 };
 
+
+module.exports.update = async(req, res) =>{
+    try{
+        if(req.user.id == req.params.id){
+
+            const Update = await User.findByIdAndUpdate(req.params.id, req.body,{ new: true });
+
+            if(Update){
+                return res.redirect("back")
+                
+            }
+
+        }
+        
+    }
+    catch(err){
+        console.error("There is a error with the update of the user", err);
+    }
+}

@@ -13,10 +13,12 @@ const postSchema = new mongoose.Schema({
     },
 
     //here we added comments so that we can easily access the comment which is done on the post. by using comment here we can directly fetch them.
-    comments: {
+
+     //******this field cannot be defined as a single ObjectId, it should be an array of ObjectIds since a post can have multiple comments. Here's the corrected schema: ******/
+    comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "comment",
-    }
+    }]
 },{
     timestamps: true
 });

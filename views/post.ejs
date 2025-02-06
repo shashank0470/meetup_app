@@ -1,0 +1,35 @@
+<!-- here we created a system when we click on the button it will delete the comment, how does it work: so first we create a form then give it a method(post) and action where to perform the deletiono. then we create a controller to do the work named dertroy then we create a route when will have the route of the delete comment. i have to pass the action link this it contain the <% post.id%> -->
+
+<div id="content">
+    <li id="hh">
+            <div><%= post.content %></div>
+            <form id="comment" action="/post/delete/<%= post._id %>" method="POST">
+            <button type="submit" ><i class="fa-solid fa-delete-left"></i></button> :
+            </form>
+            <div>
+                <% if(post.user) {%>
+                    <%= post.user.name %>
+                <% } %>
+            </div>
+            
+    </li>
+    <div class="post-comment">
+        <% if(locals.user) {%>
+            <form action="/comment/create" method="POST">
+            <input type="text" name="content" placeholder="Enter your comment" required>
+            <!-- The actual MongoDB ID of the post -->
+            <input type="hidden" name="post" value="<%= post.id%>">
+            <button>Submit</button>
+            </form>
+        <%}%>
+    </div>
+    <div class="allcomment">
+        <% for(const comment of post.comments){%>
+            
+
+            <%- include("comment",{comment:comment})%> ;
+    
+            
+        <%}%>
+    </div>
+</div>

@@ -7,8 +7,24 @@
     <link rel="stylesheet" href="/public/css/profile.css">
 </head>
 <body>
-    <p>This the profile page of User</p>
 
+    
+
+    <section id="up">
+    
+            <%if(user.id == profile_data.id ){%>
+                <form action="/user/update/<%= profile_data.id%>" method="POST">
+
+                    <input type="text" name="name" placeholder="enter your Name" value="<%= profile_data.name%>" required>
+                    <input type="email" name="email" placeholder="enter your Email" value="<%= profile_data.email%>" required >
+                    <button type="submit">Update</button>
+                </form>
+            <%} else {%>
+                <p><%= profile_data.name %></p>
+                <p><%= profile_data.email %></p>
+                <%}%>
+        
+    </section>
 
 </body>
 </html>
