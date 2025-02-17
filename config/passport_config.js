@@ -10,20 +10,24 @@ const user = require("../models/user");
 passport.use(new LocalStrategy(
     {
         usernameField: "email",
-        passwordField: "password"  // Add this to be explicit
+        passwordField: "password",  // Add this to be explicit
+
+        //this helps in Accessing request-specific data. Without using this we cannot use req, in the below async function
+        passReqToCallback: true,
     },
-    async function(email, password, done) {
+    //this req is used here by using passReqToCallback
+    async function(req,email, password, done) {
         try {
             const user = await User.findOne({ email: email });
             
             if (!user || user.password != password) {
-                console.log("Invalid username/password");
+                req.flash("error", "error in password ");
                 return done(null, false);
             }
             
             return done(null, user);
         } catch (err) {
-            console.log("There is an error in finding the user ------> passport");
+            req.flash("error", "error in finding the user");
             return done(err);
         }
     }

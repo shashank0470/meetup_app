@@ -8,7 +8,6 @@
     <script src="https://kit.fontawesome.com/9b1d1fc326.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
     <main id="Main">
 
         <section id="feed-post">
@@ -24,6 +23,7 @@
     
     
     
+        <div id="posts-list-container">
                 <!-- the const post is the const we assign for posts or post or comment. this means we are using the post of the posts (this posts is from the indexController where its value is post which is equal to = await Post.find({})) so here generally we are find the post and from those post we write the content here. -->
         <% for(const post of posts){ %>
             <!-- "post" refers to your post.ejs file
@@ -33,6 +33,8 @@
             <%- include("post", {post: post}) %>
     
         <%}%>
+        </div>
+
         </section>
     
     
@@ -52,6 +54,8 @@
             
         </section>
     </main>
+
+    <script src="/public/js/HomeIndex.js"></script>
 
     
 </body>

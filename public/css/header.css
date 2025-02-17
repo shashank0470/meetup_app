@@ -6,14 +6,17 @@
 
 #mainhead {
   width: 100%;
-  background-color: #2c3e50;
+  background-color: #866ca3;
   padding: 1rem;
 }
 #mainhead #head {
-  color: white;
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+}
+#mainhead #head a {
+  text-decoration: none;
+  color: white;
 }
 #mainhead #contentt {
   display: flex;

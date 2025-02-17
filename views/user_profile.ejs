@@ -8,18 +8,35 @@
 </head>
 <body>
 
-    
+
 
     <section id="up">
     
             <%if(user.id == profile_data.id ){%>
-                <form action="/user/update/<%= profile_data.id%>" method="POST">
-
+                <form action="/user/update/<%= profile_data.id%>" enctype="multipart/form-data" method="POST">
+                    <!-- this replace any \(backward slash) because Web browsers expect only forward slashes in URLs. -->
+    
+                    <div id="Image">
+                        <% if (user && user.avatar) { %>
+                            <img src="/<%= user.avatar.replace(/\\/g, '/') %>" alt="<%= user.name %>" width="100">
+                        <% } else { %>
+                            <img src="/uploads/users/avatar/default.jpg" alt="Default Avatar" width="100">
+                        <% } %>
+                    </div>
                     <input type="text" name="name" placeholder="enter your Name" value="<%= profile_data.name%>" required>
                     <input type="email" name="email" placeholder="enter your Email" value="<%= profile_data.email%>" required >
+                    <input type="file" name="avatar" placeholder="Profile Picture">
                     <button type="submit">Update</button>
                 </form>
             <%} else {%>
+                <div id="Profile">
+                <div id="Image">
+                    <% if (profile_data.avatar) { %>
+                        <img src="/<%= profile_data.avatar.replace(/\\/g, '/') %>" alt="<%= profile_data.name %>" width="100">
+                    <% } else { %>
+                        <img src="/uploads/users/avatar/default.jpg" alt="Default Avatar" width="100">
+                    <% } %>
+                </div>
                 <p><%= profile_data.name %></p>
                 <p><%= profile_data.email %></p>
                 <%}%>
@@ -28,3 +45,22 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

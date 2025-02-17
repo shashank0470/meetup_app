@@ -8,16 +8,22 @@
 // Main header container
 #mainhead {
     width: 100%;
-    background-color: #2c3e50;
+    background-color: #866ca3;
     padding: 1rem;
     
     // Header title
     #head {
-        color: white;
         font-size: 1.5rem;
         font-weight: bold;
         margin-bottom: 0.5rem;
+        
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
     }
+
 
     // Content container
     #contentt {

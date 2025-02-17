@@ -7,13 +7,16 @@ const path = require("path")
 const expressEjsLayouts = require("express-ejs-layouts");
 const connectDB = require("./config/db")
 const flash = require("connect-flash")
-
+const customMiddleware = require("./config/middleware")
 
 //sass for better css or something like that, lol
 const sass = require("sass")
 // Function to compile Sass
 async function compileSass() {
     try {
+
+
+
         const layoutResult = await sass.compileAsync(path.join(__dirname, 'public/sass/layout.scss'));
         fs.writeFileSync(path.join(__dirname, 'public/css/layout.css'), layoutResult.css);
         console.log('layout.scss compiled successfully!');
@@ -21,6 +24,10 @@ async function compileSass() {
         const indexResult = await sass.compileAsync(path.join(__dirname, 'public/sass/index.scss'));
         fs.writeFileSync(path.join(__dirname, 'public/css/index.css'), indexResult.css);
         console.log('index.scss compiled successfully!');
+
+        const profileResult = await sass.compileAsync(path.join(__dirname, 'public/sass/profile.scss'));
+        fs.writeFileSync(path.join(__dirname, 'public/css/profile.css'), profileResult.css);
+        console.log('profile.scss compiled successfully!');
 
         // Compile signin.scss
         const signinResult = await sass.compileAsync(path.join(__dirname, 'public/sass/signin.scss'));
@@ -67,6 +74,8 @@ app.use(cookieParser());
 
 app.use("/public", express.static(path.join(__dirname, "public")))
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use(expressEjsLayouts)
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
@@ -81,8 +90,6 @@ const session = require("express-session")
 const passport = require("passport")
 const localPassport = require("./config/passport_config")
 
-//here is the flash messages came from
-app.use(flash());
 
 app.use(session({
     name:"meetup",
@@ -102,6 +109,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 //is used to make the logged-in user's information available across all views in your application
 app.use(passport.setAuthenticatedUser);
+
+
+//here is the flash messages came from
+app.use(flash());
+// this is the custom middleware where i have done the setup of flash messagees
+app.use(customMiddleware.setFlash)
+
+
 
 const Userroutes = require("./routes/userRoutes");
 const Indexroutes = require("./routes/indexRoutes")

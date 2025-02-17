@@ -10,12 +10,12 @@
 <body>
     <div id="mainhead">
         <div id="head">
-            Codeial
+            <a href="/">MeetUp</a>
         </div>
         <div id="contentt">
             <% if(locals.user){ %>
                 <div id="user">
-                    <p><a href="/user/profile"><%= user.name %></a></p>
+                    <p><a href="/user/profile/<%= user._id %>"><%= user.name %></a></p>
                     <p><a href="/user/signout">Sign Out</a></p>
                 </div>
             <%} else{%>

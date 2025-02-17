@@ -1,11 +1,12 @@
 <!-- here we created a system when we click on the button it will delete the comment, how does it work: so first we create a form then give it a method(post) and action where to perform the deletiono. then we create a controller to do the work named dertroy then we create a route when will have the route of the delete comment. i have to pass the action link this it contain the <% post.id%> -->
 
-<div id="content">
+<div id="content-<%= post._id%>">
     <li id="hh">
             <div><%= post.content %></div>
-            <form id="comment" action="/post/delete/<%= post._id %>" method="POST">
-            <button type="submit" ><i class="fa-solid fa-delete-left"></i></button> :
-            </form>
+            <!-- <form id="comment" action="/post/delete/<%= post._id %>" method="POST">
+            <button type="submit" ><i class="fa-solid fa-delete-left"></i></button>
+            </form> -->
+            <a class="delete-post-button" href="/post/delete/<%= post._id %>"> <i class="fa-solid fa-delete-left"></i> </a>
             <div>
                 <% if(post.user) {%>
                     <%= post.user.name %>

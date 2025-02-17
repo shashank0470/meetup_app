@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/public/css/layout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
     <%- style%>
 </head>
 <body>
     <%- include("./partials/header")%>
+
+    
 
     <main id="content">
         <%-body%>
@@ -19,6 +25,33 @@
     <%- include("./partials/footer")%>
 
     <%- script%>
+
+
+    <!-- we write this inside the script tag because it is clint side code and to make it display we have to follow this, all these theme, text, type, layout,timeout etc you can learn them from the documentation of this flash messages.  -->
+    <script>
+        <% if(flash.success && flash.success.length > 0){%>
+            new Noty({
+                theme: "relax",
+                text: '<%= flash.success%>',
+                type: "success",
+                layout: "topRight",
+                timeout: 1500,
+            }).show();
+        <%}%>
+
+
+        <% if(flash.error && flash.error.length > 0){%>
+            new Noty({
+                theme: "relax",
+                text: '<%= flash.error%>',
+                type: "error",
+                layout: "topRight",
+                timeout: 1500,
+            }).show();
+        <%}%>
+    </script>
+    
+
 </body>
 </html>
 

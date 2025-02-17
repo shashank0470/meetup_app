@@ -1,5 +1,6 @@
 const user = require('../models/user');
 const User = require('../models/user');
+const fs = require("fs");
 
 // module.exports.getalluser = async(req, res) =>{
 //     try{
@@ -21,8 +22,9 @@ module.exports.profile = async (req, res)=>{
                 //this is important to use beacuse we are using the user deatils in the profie ejs file and without this it wont be possible
                 user: req.user
             })
-
-            
+        }
+        else{
+            return res.status(404).send('User not found');
 
         }
     }
@@ -68,6 +70,7 @@ module.exports.create = async (req, res) => {
     try {
         // Check if the passwords match - note the lowercase field names
         if (req.body.password !== req.body.CPassword) {
+
             return res.redirect('back');
         }
 
@@ -96,6 +99,7 @@ module.exports.create = async (req, res) => {
 
 module.exports.createsession = async(req, res)=>{
     try{
+        req.flash("success", "login successfully")
         return res.redirect("/")
     }
     catch(error){
@@ -106,11 +110,15 @@ module.exports.createsession = async(req, res)=>{
 
 module.exports.logOut = async(req, res) =>{
     try{
+
+        req.flash("success", "logout successfully")
+
         req.logout((err)=>{
             if(err){
                 console.log("There is a error",err)
             }
         })
+        
 
         return res.redirect("/")
 
@@ -121,21 +129,40 @@ module.exports.logOut = async(req, res) =>{
 };
 
 
-module.exports.update = async(req, res) =>{
-    try{
-        if(req.user.id == req.params.id){
+module.exports.update = async (req, res) => {
+    try {
+        if (req.user.id == req.params.id) {
+            // Find the user first
+            let user = await User.findById(req.params.id);
 
-            const Update = await User.findByIdAndUpdate(req.params.id, req.body,{ new: true });
-
-            if(Update){
-                return res.redirect("back")
-                
+            if (!user) {
+                console.log("User not found");
+                return res.redirect("back");
             }
 
+            // Upload avatar if a file is provided
+            User.uploadedAvatar(req, res, async function (err) {
+                if (err) {
+                    console.log("**** Multer error:", err);
+                    return res.redirect("back");
+                }
+
+                // Update user data
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                // If a new avatar is uploaded, update the avatar path
+                if (req.file) {
+                    user.avatar = User.Avatar_Path + "/" + req.file.filename;
+                }
+
+                // Save the updated user
+                await user.save();
+
+                return res.redirect("back");
+            });
         }
-        
+    } catch (err) {
+        console.error("There is an error with the update of the user", err);
     }
-    catch(err){
-        console.error("There is a error with the update of the user", err);
-    }
-}
+};
