@@ -6,7 +6,7 @@ const passport = require("passport");
 
 router.get("/", passport.checkAuthentication ,indexController.getalluser);
 
-
+router.use("/api", require("./api"))
 // when this is not written  this error comes: Router.use() requires a middleware function but got a Object
 
 module.exports = router; 

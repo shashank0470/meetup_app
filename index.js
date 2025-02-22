@@ -90,6 +90,8 @@ const session = require("express-session")
 const passport = require("passport")
 const localPassport = require("./config/passport_config")
 
+const JwtPassport = require("./config/passport-jwt")
+
 
 app.use(session({
     name:"meetup",
