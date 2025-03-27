@@ -15,4 +15,4 @@ module.exports.setFlash = async(req, res, next) =>{
 // ↓
 // Middleware stores it → res.locals.flash.success
 // ↓
-// View accesses it → flash.success
+// View accesses it → flash.success  

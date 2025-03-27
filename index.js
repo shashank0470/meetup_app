@@ -1,22 +1,37 @@
+//here we use the functionality of express or use express
+require('dotenv').config();
 const express = require("express");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
+
+// Core Node.js modules
 const fs = require('fs');
-const path = require("path")
+const path = require("path");
+
+// Express and view-related modules
 const expressEjsLayouts = require("express-ejs-layouts");
-const connectDB = require("./config/db")
-const flash = require("connect-flash")
-const customMiddleware = require("./config/middleware")
+const bodyParser = require('body-parser');
+const session = require("express-session");
+
+// Database and authentication modules
+const connectDB = require("./config/db");
+const MongoStore = require("connect-mongo");
+const passport = require("passport");
+const localPassport = require("./config/passport_config");
+const JwtPassport = require("./config/passport-jwt");
+const passportGoogle = require("./config/passport-google-oauth2-strategy");
+
+// Flash messages and middleware
+const flash = require("connect-flash");
+const customMiddleware = require("./config/middleware");
 
 //sass for better css or something like that, lol
-const sass = require("sass")
+const sass = require("sass");
+
 // Function to compile Sass
 async function compileSass() {
     try {
-
-
-
         const layoutResult = await sass.compileAsync(path.join(__dirname, 'public/sass/layout.scss'));
         fs.writeFileSync(path.join(__dirname, 'public/css/layout.css'), layoutResult.css);
         console.log('layout.scss compiled successfully!');
@@ -55,86 +70,74 @@ async function compileSass() {
     }
 }
 
-
 // Run the compiler
 compileSass();
 
-
-
-//connect mongo is used to store our cookie
-const Mongostore = require("connect-mongo")
-
-
-const bodyParser = require('body-parser');
-
-
+// Middleware Configuration
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(cookieParser());
 
-app.use("/public", express.static(path.join(__dirname, "public")))
-
+// Static file serving
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.use(expressEjsLayouts)
+// EJS Layout Setup
+app.use(expressEjsLayouts);
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
-app.set("view engine", "ejs")
-app.set("views", path.join(__dirname,"views"))
-
+// View Engine Configuration
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname,"views"));
 
 //******use this passport and iske turant baad isko app.use(session) wala *****/
 //used for session cookie or to store the users information 
-const session = require("express-session")
-const passport = require("passport")
-const localPassport = require("./config/passport_config")
-
-const JwtPassport = require("./config/passport-jwt")
-
-
 app.use(session({
     name:"meetup",
     secret:"shashankpantishero",
     saveUninitialized: false,
-    resave: false,
+    resave: false,//it helps prevent saving already saved data
     cookie: {
-        maxAge:(1000 * 40 * 100)
+        maxAge:(1000 * 40 * 100) // this indicates the session or time of cookies
     },
     //by writing this we permanantly set our session, and now it will not get expired
-    store: Mongostore.create({
-        mongoUrl: 'mongodb://127.0.0.1:27017/meetup'
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1:27017/meetup',
+        collectionName: 'sessions', // explicitly specify session collection
+        autoRemove: 'interval',
+        autoRemoveInterval: 10 // remove expired sessions every 10 minutes
     })
 }));
 
+// Passport Initialization
 app.use(passport.initialize());
 app.use(passport.session());
 //is used to make the logged-in user's information available across all views in your application
 app.use(passport.setAuthenticatedUser);
 
-
 //here is the flash messages came from
 app.use(flash());
 // this is the custom middleware where i have done the setup of flash messagees
-app.use(customMiddleware.setFlash)
+app.use(customMiddleware.setFlash);
 
-
-
+// Route Imports
 const Userroutes = require("./routes/userRoutes");
-const Indexroutes = require("./routes/indexRoutes")
-const Postroutes = require("./routes/postRoutes")
-const Commentroutes = require("./routes/commentRoutes")
+const Indexroutes = require("./routes/indexRoutes");
+const Postroutes = require("./routes/postRoutes");
+const Commentroutes = require("./routes/commentRoutes");
+
+// Database Connection
 connectDB();
 
-app.use("/comment",Commentroutes)
-app.use("/user",Userroutes)
-app.use("/",Indexroutes)
-app.use("/Post",Postroutes)
+// Route Usage
+app.use("/comment", Commentroutes);
+app.use("/user", Userroutes);
+app.use("/", Indexroutes);
+app.use("/Post", Postroutes);
 
-
-
+// Server Initialization
 app.listen(port, function(error, data){
     if(error){
-        console.log("There is a error")
-    }else(console.log("The port is running at:", port))
-})
+        console.log("There is a error");
+    }else(console.log("The port is running at:", port));
+});

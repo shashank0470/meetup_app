@@ -1,18 +1,18 @@
-// //what is happening here is first we find user, then the id of the user is stored in the cookie in the form of id through serialization, then the cookie is sended to the sever side and this cookie is authenticated and the user is finded again in the system, the the cookie is converted in the useable data and then sended again to the user or client side through deserialization
+// //what is happening here is first we find user, then the id of the user is stored through session in server and as cookies in browser in the form of id through serialization, then the cookie is sended to the sever side and this cookie is authenticated and the user is finded again in the system, the the cookie is converted in the useable data and then sended again to the user or client side through deserialization
 
 
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../models/user");
-const user = require("../models/user");
+
 
 passport.use(new LocalStrategy(
     {
         usernameField: "email",
         passwordField: "password",  // Add this to be explicit
 
-        //this helps in Accessing request-specific data. Without using this we cannot use req, in the below async function
+        // this 'passReqToCallback' option allows us to use req inside the authentication function.
         passReqToCallback: true,
     },
     //this req is used here by using passReqToCallback
@@ -52,6 +52,8 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 // This is a protection middleware that controls route access
+
+//Middleware for Authentication Check, some feature or some routes must be accessed only by authenticated user
 passport.checkAuthentication = async (req, res, next)=> {
     try{
         if (req.isAuthenticated()){
@@ -67,10 +69,13 @@ passport.checkAuthentication = async (req, res, next)=> {
 }
 
 // This is an information-sharing middleware that passes user data to views
+
+// Middleware for Making User Data Available in Views
 passport.setAuthenticatedUser = async (req, res, next)=>{
     try{
         if(req.isAuthenticated()){
             //Make user data available to views through res.locals
+            //this res.locals is for views or for local user and this req.user is the login user
             res.locals.user = req.user // Makes user data available in views
         }
         next()

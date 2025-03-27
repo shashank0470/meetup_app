@@ -1,0 +1,31 @@
+<!-- views/mailers/comments.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .comment-container {
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="comment-container">
+        <h2>New Comment Notification</h2>
+        <p>Hello <%= user.name %>,</p>
+        <p>A new comment has been added to a post you're following.</p>
+        <div>
+            <strong>Comment Details:</strong>
+            <p><%= comment.content %></p>
+        </div>
+        <p>Thank you for being part of our community!</p>
+    </div>
+</body>
+</html>

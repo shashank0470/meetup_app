@@ -12,6 +12,7 @@
 
         <section id="feed-post">
             <h4>Posts</h4>
+            <!-- this local.user is used so that this particular form is visible only after the signin -->
             <% if(locals.user){%>
                 <form action="/post/create" id="new-post-form" method="POST">
                     <textarea name="content" cols="30" rows="3" placeholder="Type here"></textarea>

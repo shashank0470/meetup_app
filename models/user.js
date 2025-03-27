@@ -41,7 +41,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
     cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
+    } 
 })
 //single: This tells multer to accept a single file upload from a form field named "avatar"
 //****a static method because it handles file uploads at the model level, not for individual users.****

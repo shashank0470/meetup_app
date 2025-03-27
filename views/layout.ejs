@@ -27,7 +27,10 @@
     <%- script%>
 
 
-    <!-- we write this inside the script tag because it is clint side code and to make it display we have to follow this, all these theme, text, type, layout,timeout etc you can learn them from the documentation of this flash messages.  -->
+    <!-- we write this inside the script tag because it is client side code and to make it display we have to follow this, all these theme, text, type, layout,timeout etc you can learn them from the documentation of this flash messages.  -->
+
+
+    <!-- this is Noty which is Js library for display notification on client side, it not build in express it is seperate library which is used in seperate <script></script> tag because it runs on the browser not on the server -->
     <script>
         <% if(flash.success && flash.success.length > 0){%>
             new Noty({

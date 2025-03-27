@@ -16,7 +16,7 @@ const postSchema = new mongoose.Schema({
 
      //******this field cannot be defined as a single ObjectId, it should be an array of ObjectIds since a post can have multiple comments. Here's the corrected schema: ******/
     comments: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,                                                                              
         ref: "comment",
     }]
 },{
