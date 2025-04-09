@@ -1,6 +1,6 @@
 const nodemailer = require("../config/nodemailer")
 
-module.exports = {
+module.exports = { 
     comments_mail: async (comment) => {
         try {
             console.log("Nodemailer start")

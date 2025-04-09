@@ -7,7 +7,7 @@ const port = 8000;
 
 // Core Node.js modules
 const fs = require('fs');
-const path = require("path");
+const path = require("path"); 
 
 // Express and view-related modules
 const expressEjsLayouts = require("express-ejs-layouts");
@@ -93,19 +93,22 @@ app.set("views", path.join(__dirname,"views"));
 //******use this passport and iske turant baad isko app.use(session) wala *****/
 //used for session cookie or to store the users information 
 app.use(session({
-    name:"meetup",
-    secret:"shashankpantishero",
+    name: "meetup",
+    secret: "shashankpantishero", // Use environment variable
     saveUninitialized: false,
-    resave: false,//it helps prevent saving already saved data
+    resave: false,
     cookie: {
-        maxAge:(1000 * 40 * 100) // this indicates the session or time of cookies
+        maxAge: 1000 * 60 * 40, // Corrected to 40 minutes (previously was incorrectly calculated)
+        httpOnly: true, // Protect against cross-site scripting
     },
-    //by writing this we permanantly set our session, and now it will not get expired
     store: MongoStore.create({
         mongoUrl: 'mongodb://127.0.0.1:27017/meetup',
-        collectionName: 'sessions', // explicitly specify session collection
+        collectionName: 'sessions',
         autoRemove: 'interval',
-        autoRemoveInterval: 10 // remove expired sessions every 10 minutes
+        autoRemoveInterval: 10,
+        // Additional connection options
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     })
 }));
 

@@ -1,6 +1,8 @@
 const user = require('../models/user');
 const User = require('../models/user');
 const fs = require("fs");
+const nodemailer = require("../config/nodemailer")
+const signupMailer = require("../mailer/signup-mailer")
 
 // module.exports.getalluser = async(req, res) =>{
 //     try{
@@ -42,8 +44,10 @@ module.exports.signup = async (req, res) => {
             res.redirect("/");
         }
         return res.render('user_sign_up', {
-            title: 'Signup page'
+            title: 'Signup page',
         });
+        
+        
     } catch (error) {
         console.error('Signup error:', error);
         return res.status(500).send('The signup page is not working');
@@ -84,6 +88,8 @@ module.exports.create = async (req, res) => {
                 email: req.body.email,
                 password: req.body.password
             });
+
+            await signupMailer.signup(user);
             
             return res.redirect('/user/signin');
         } else {
