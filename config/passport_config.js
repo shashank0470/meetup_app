@@ -61,7 +61,7 @@ passport.checkAuthentication = async (req, res, next)=> {
 
         }
 
-        return res.redirect("/user/signin") // Blocks access, redirects to home
+        return  res.redirect("/user/signin") // Blocks access, redirects to home
     }
     catch(err){
         console.error("There is a error", error)
