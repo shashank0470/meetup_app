@@ -7,7 +7,7 @@ const opts = {
     //Specifies how to extract the JWT from the request (in this case, from the Authorization header as a Bearer token)
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     // The secret key used to verify the JWT signature
-    secretOrKey: "MeetUp", 
+    secretOrKey: process.env.JWT_SECRET, 
 };
 
 //This line configures Passport to use a new JWT strategy
