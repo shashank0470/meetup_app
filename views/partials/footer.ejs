@@ -8,22 +8,23 @@
 </head>
 <body>
 
-    <footer id="footer">
-        <div class="hello">
-
-
-            <div id="icon">
-                &copy; shashankPant
-            </div>
-        
-            <div id="links">
-                <a href="/">Home</a>
-                <a href="/user/profile/">Profile</a>
-            </div>
+<footer id="footer">
+    <div class="hello">
+        <div id="icon">
+            &copy; shashankPant
         </div>
-        
 
-    </footer>
+        <div id="links">
+            <a href="/">Home</a>
+            <% if (user) { %>
+                <a href="/user/profile/<%= user.id %>">Profile</a>
+            <% } else { %>
+                <a href="/user/sign-in">Login</a>
+            <% } %>
+        </div>
+    </div>
+</footer>
+
     
 </body>
 </html>

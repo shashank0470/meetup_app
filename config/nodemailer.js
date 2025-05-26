@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 let renderTemplate = async (data, relativePath) => {
-    try {
+    try { 
         const templatePath = path.join(__dirname, "../views/mailers", relativePath);
         const template = await ejs.renderFile(templatePath, data);
         return template;

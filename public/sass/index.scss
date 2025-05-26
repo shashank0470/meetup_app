@@ -1,39 +1,292 @@
-body{
-
-
-    #Main{
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        padding: 10px;
-
-    }
-    #content{
-        margin-top: 10px;
-        
-
-        #hh{
-            list-style: square;
-            margin: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .post-comment{
-            margin: 20px;
-        }
-    }
-
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     
-    #all_users{
-        margin: 20px;
-        display: flex;
-        flex-direction: column;
-        border-left: 1px black solid;
-        // this gap only work when the display is flex
-        gap: 5px;
-        padding: 5px;
-        height: 100%;
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f2e;
+    --bg-card: rgba(255, 255, 255, 0.08);
+    --bg-glass: rgba(255, 255, 255, 0.1);
+    
+    --text-primary: #ffffff;
+    --text-secondary: #8b949e;
+    --text-accent: #58a6ff;
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.3);
+    
+    --border-radius: 16px;
+    --border-radius-sm: 8px;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+}
+
+
+
+body {
+    #Main {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: var(--spacing-lg);
+        width: 100%;
+        margin-top: var(--spacing-md);
+        
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+        }
     }
 
+    #content {
+        #new-post-form {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-light);
+            
+            textarea {
+                width: 100%;
+                min-height: 120px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius-sm);
+                padding: var(--spacing-sm);
+                color: var(--text-primary);
+                font-family: inherit;
+                font-size: 16px;
+                resize: vertical;
+                transition: all 0.3s ease;
+                
+                &:focus {
+                    outline: none;
+                    border-color: var(--text-accent);
+                    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+                    background: rgba(255, 255, 255, 0.08);
+                }
+                
+                &::placeholder {
+                    color: var(--text-secondary);
+                }
+            }
+            
+            button {
+                background: var(--accent-gradient);
+                border: none;
+                border-radius: var(--border-radius-sm);
+                padding: var(--spacing-xs) var(--spacing-md);
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                margin-top: var(--spacing-sm);
+                
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+                }
+                
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+        
+        // Post styles
+        [id^="content-"] {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            animation: fadeInUp 0.6s ease-out;
+            
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-heavy);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            
+            #hh {
+                list-style: none;
+                padding: var(--spacing-md);
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                
+                > div:first-child {
+                    flex: 1;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    margin-right: var(--spacing-md);
+                }
+                
+                .delete-post-button {
+                    color: #ff6b6b;
+                    text-decoration: none;
+                    padding: var(--spacing-xs);
+                    border-radius: var(--border-radius-sm);
+                    transition: all 0.3s ease;
+                    
+                    &:hover {
+                        background: rgba(255, 107, 107, 0.1);
+                        transform: scale(1.1);
+                    }
+                    
+                    i {
+                        font-size: 18px;
+                    }
+                }
+                
+                > div:last-child {
+                    font-size: 12px;
+                    color: var(--text-secondary);
+                    font-weight: 500;
+                    margin-top: var(--spacing-xs);
+                }
+                
+                @media (max-width: 768px) {
+                    flex-direction: column;
+                    gap: var(--spacing-sm);
+                }
+            }
+            
+            .post-comment {
+                padding: 0 var(--spacing-md) var(--spacing-md);
+                
+                form {
+                    display: flex;
+                    gap: var(--spacing-sm);
+                    align-items: center;
+                    
+                    input[type="text"] {
+                        flex: 1;
+                        background: rgba(255, 255, 255, 0.05);
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--border-radius-sm);
+                        padding: var(--spacing-xs) var(--spacing-sm);
+                        color: var(--text-primary);
+                        font-family: inherit;
+                        transition: all 0.3s ease;
+                        
+                        &:focus {
+                            outline: none;
+                            border-color: var(--text-accent);
+                            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+                        }
+                        
+                        &::placeholder {
+                            color: var(--text-secondary);
+                        }
+                    }
+                    
+                    button {
+                        background: var(--secondary-gradient);
+                        border: none;
+                        border-radius: var(--border-radius-sm);
+                        padding: var(--spacing-xs) var(--spacing-sm);
+                        color: white;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        
+                        &:hover {
+                            transform: translateY(-1px);
+                            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+                        }
+                    }
+                }
+            }
+            
+            .allcomment {
+                border-top: 1px solid var(--border-color);
+                
+                .comment {
+                    padding: var(--spacing-sm) var(--spacing-md);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    font-size: 14px;
+                    color: var(--text-secondary);
+                    
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.02);
+                    }
+                }
+            }
+        }
+    }
+
+    #all_users {
+        background: var(--bg-card);
+        backdrop-filter: blur(20px);
+        border-radius: var(--border-radius);
+        padding: var(--spacing-md);
+        border: 1px solid var(--border-color);
+        height: fit-content;
+        position: sticky;
+        top: calc(80px + var(--spacing-md));
+        box-shadow: var(--shadow-light);
+        
+        h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        > div {
+            padding: var(--spacing-xs) 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            
+            &:last-child {
+                border-bottom: none;
+            }
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: var(--border-radius-sm);
+                padding-left: var(--spacing-xs);
+            }
+            
+            a {
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s ease;
+                
+                &:hover {
+                    color: var(--text-accent);
+                }
+            }
+        }
+        
+        @media (max-width: 768px) {
+            position: static;
+        }
+    }
+}
+
+// Animations
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

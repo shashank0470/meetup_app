@@ -1,61 +1,70 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 #mainhead {
-  width: 100%;
-  background-color: #866ca3;
-  padding: 1rem;
+  background: var(--primary-gradient);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-light);
 }
 #mainhead #head {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
 }
 #mainhead #head a {
   text-decoration: none;
-  color: white;
+  color: var(--text-primary);
+  background: linear-gradient(45deg, #fff, #e0e7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+#mainhead #head a:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 #mainhead #contentt {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
-#mainhead #contentt #user {
+#mainhead #contentt #user, #mainhead #contentt #userA {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-sm);
 }
-#mainhead #contentt #user p {
-  margin: 0;
-}
-#mainhead #contentt #user p a {
-  color: white;
+#mainhead #contentt #user p a, #mainhead #contentt #userA p a {
+  color: var(--text-primary);
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
-#mainhead #contentt #user p a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+#mainhead #contentt #user p a:hover, #mainhead #contentt #userA p a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
-#mainhead #contentt #userA {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-}
-#mainhead #contentt #userA p {
-  margin: 0;
-}
-#mainhead #contentt #userA p a {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-}
-#mainhead #contentt #userA p a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+@media (max-width: 768px) {
+  #mainhead {
+    padding: var(--spacing-sm);
+  }
+  #mainhead #head {
+    font-size: 1.5rem;
+  }
+  #mainhead #contentt {
+    margin-top: var(--spacing-xs);
+  }
+  #mainhead #contentt #user, #mainhead #contentt #userA {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
 }

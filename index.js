@@ -132,11 +132,17 @@ const Commentroutes = require("./routes/commentRoutes");
 // Database Connection
 connectDB();
 
+app.use((req, res, next) => {
+    res.locals.user = req.user;        
+    res.locals.flash = req.flash();    
+    next();
+});
 // Route Usage
 app.use("/comment", Commentroutes);
 app.use("/user", Userroutes);
 app.use("/", Indexroutes);
 app.use("/Post", Postroutes);
+
 
 // Server Initialization
 app.listen(port, function(error, data){

@@ -21,7 +21,7 @@
             <%}%>
     
     
- 
+
     
     
         <div id="posts-list-container">
@@ -46,13 +46,14 @@
             <% if(locals.user){%>
                 
                 <h1>All the user list:-</h1>
-                <% for(const user of users){%>
-                <!-- here we changed the url so now we have to change the url from the routes also  -->
-                <p><a href="/user/profile/<%= user.id%>"><%= user.name %></a></p> 
-                <%}%>
+                <% for(const user of users){ %>
+                <div>
+                    <a href="/user/profile/<%= user.id %>"><%= user.name %></a>
+                </div>
+                <% } %>
                 
             <%}%>
-            
+                
         </section>
     </main>
 

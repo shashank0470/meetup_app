@@ -1,10 +1,67 @@
-body{
-    #up{
-        margin: 10px;
-
-        #Image{
-            margin-top: 10px;
+body {
+    #up {
+        background: var(--bg-card);
+        backdrop-filter: blur(20px);
+        border-radius: var(--border-radius);
+        padding: var(--spacing-xl);
+        margin: var(--spacing-md);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-light);
+        
+        #Image {
+            text-align: center;
+            margin-top: var(--spacing-md);
+            
+            img {
+                border-radius: 50%;
+                border: 4px solid var(--border-color);
+                transition: all 0.3s ease;
+                max-width: 150px;
+                height: auto;
+                
+                &:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    border-color: var(--text-accent);
+                }
+            }
+        }
+        
+        h1, h2, h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        // Profile info sections
+        .profile-section {
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        // Profile links/buttons
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            background: rgba(88, 166, 255, 0.1);
+            display: inline-block;
+            margin: var(--spacing-xs);
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: rgba(88, 166, 255, 0.2);
+                transform: translateY(-1px);
+            }
         }
     }
-    
 }
