@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 // Core Node.js modules
 const fs = require('fs');
@@ -94,7 +94,7 @@ app.set("views", path.join(__dirname,"views"));
 //used for session cookie or to store the users information 
 app.use(session({
     name: "meetup",
-    secret: "shashankpantishero", // Use environment variable
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -102,7 +102,7 @@ app.use(session({
         httpOnly: true, // Protect against cross-site scripting
     },
     store: MongoStore.create({
-        mongoUrl: 'mongodb://127.0.0.1:27017/meetup',
+        mongoUrl: process.env.MONGO_URI,
         collectionName: 'sessions',
         autoRemove: 'interval',
         autoRemoveInterval: 10,
