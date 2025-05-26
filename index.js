@@ -102,7 +102,7 @@ app.use(session({
         httpOnly: true, // Protect against cross-site scripting
     },
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
+        mongoUrl: process.env.MONGODB_URI,
         collectionName: 'sessions',
         autoRemove: 'interval',
         autoRemoveInterval: 10,
